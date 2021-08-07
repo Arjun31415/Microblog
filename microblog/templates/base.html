@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Microblog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar__brand">
+            <a href="{{ url_for('home')}}">
+                <img src="{{url_for('static',filename = 'microblog-logo.svg')}}" alt="Microblog-logo"
+                    class="navbar__logo" />
+            </a>
+            <a href="{{url_for('home')}}" class="navbar__link">Microblog</a>
+        </div>
+        <nav class="navbar__navigation">
+            <ul>
+                <li class="navbar__navigation-item" id="recent">
+                    <a href="#" class="navbar__link">
+                        Recent
+                    </a>
+                </li>
+                <li class="navbar__navigation-item" id="calendar">
+                    <a href="#" class="navbar__link">
+                        Calendar
+                    </a>
+                </li>
+                <li class="navbar__navigation-item" id="my_blogs">
+                    <a href="{{url_for('user_blogs')}}" class="navbar__link">
+                        My Blogs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <!-- <font size="3" face="times" color="black">
+
+            \[ \vec{A} = 5\hat{x} + 4\hat{y} \]
+
+        </font> -->
+        {% block content %}
+
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer__content">
+            <section class="left">
+                <a class="footer__item">Made by Arjun Prashanth</a>
+                <a class="footer__item"> Check out my other projects!</a>
+            </section>
+            <section class="right">
+                <div class="footer__column">
+                    <a class="footer__item">Recent</a>
+                    <a class="footer__item">Calendar</a>
+                </div>
+                <div class="footer__column">
+                    <a class="footer__item">About</a>
+                    <a class="footer__item">How this was made </a>
+                </div>
+            </section>
+        </div>
+    </footer>
+</body>
+
+</html>

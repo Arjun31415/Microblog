@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h1>Quick Entry</h1>
+    <form class="form" method="POST">
+        <p class="form__input">
+            <!-- <label for="entry" class="form__label"> Entry contents: </label> -->
+            <textarea type="text" name="content" id="entry" class="form__textarea"
+                aria-label="Entry Contents"></textarea>
+        </p>
+        <div class="wrap">
+            <button type="submit" class="form__submit">
+                Add Entry
+            </button>
+        </div>
+    </form>
+</section>
+<section>
+    <h1>Recent Posts</h1>
+    {% for entry in entries %}
+    <article class="entry">
+        <div>
+            <!-- <h2 class="entry__title">{{entry[0] | truncate(30,true)}}</h2> -->
+            <h2 class="entry__title">{{entry[3] | truncate(30,true)}}</h2>
+
+            <time class="entry__date" datetime="{{entry[1]}}">• {{entry[2]}}</time>
+        </div>
+        <p class="entry__content">
+            {{entry[0]}}
+        </p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
