@@ -1,7 +1,6 @@
 {% include 'head.html' %}
-<section class="hero is-fullheight is-medium">
-  <!-- Hero content: will be in the middle -->
-  <div class="hero-body">
+<section class="is-fullheight">
+  <div class="splashpage-content">
     <div class="container has-text-centered">
       <h1 class="title">
         MicroBlog
@@ -10,13 +9,21 @@
         a mini-bloggin website
       </h2>
 
-      <h3 class="has-text-warning">You must log into an account to view this content.</h3>
-
+      <h3 class="has-text-warning">
+        You must log into an account to view this content.
+      </h3>
       <hr />
+      <br></br>
 
-      <div class="content">
-        <a class="button is-info is-medium " href="{{ url_for('login_template') }}">log in</a>
-        <a class="button is-primary is-medium" href="{{ url_for('register_template') }}">sign up</a>
+      <div class="redirects">
+        <button class="button">
+          <a class="is-info" href="{{ url_for('login_template') }}">log in
+          </a>
+        </button>
+        <button class="button">
+          <a class="is-info" href="{{ url_for('register_template') }}">sign up
+          </a>
+        </button>
       </div>
 
     </div>
