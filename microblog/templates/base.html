@@ -43,6 +43,22 @@
                         My Blogs
                     </a>
                 </li>
+                {% if  url_for(request.endpoint) != url_for('login_template') and
+                        url_for(request.endpoint)!=url_for('register_user') and
+                        url_for(request.endpoint)!=url_for('login_user') and
+                        url_for(request.endpoint)!=url_for('register_template')
+                %}
+                <!-- {{mdebug(url_for(request.endpoint) )}}
+                {{mdebug(url_for('login_template'))}}
+                {{mdebug(url_for(request.endpoint)==url_for('login_template'))}} -->
+
+                <li class="navbar__navigation-item" id="user">
+                    <a href="{{url_for('user_blogs')}}" class="navbar__link">
+                        AP
+                    </a>
+                </li>
+                {%endif%}
+
             </ul>
         </nav>
     </header>
