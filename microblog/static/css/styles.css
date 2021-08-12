@@ -37,6 +37,8 @@ body {
     padding: 0;
     list-style-type: none;
     color: #5c6b70;
+    align-items: center;
+
     /* color: #3c3f41; */
 }
 
@@ -49,6 +51,7 @@ body {
     text-decoration: none;
     color: inherit;
     display: inline-block;
+    text-align: center;
 }
 
 .navbar__link:hover {
@@ -96,8 +99,6 @@ body {
     cursor: pointer;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     outline: none;
-
-
 }
 
 .form__submit:hover {
@@ -233,4 +234,22 @@ body {
 
     min-height: 100vh;
     background-color: #9dedf0
+}
+
+.btn-success {
+    margin-top: 5rem;
+}
+
+.btn-success:hover {
+    background-color: rgb(48, 216, 48);
+}
+
+.is-error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    min-width: max-content;
+    margin-bottom: 2.5em;
+    font-size: 18px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 5px #FB7D7D;
 }
