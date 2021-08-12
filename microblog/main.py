@@ -10,6 +10,7 @@ from flask.helpers import url_for
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import redirect
 
+from flask import flash
 import user
 from blog import Blog
 from database.db import Database
@@ -38,8 +39,11 @@ def create_app() -> Flask:
         return User(email)
 
     @app.route('/login')
-    def login_template():
-        return render_template('login.html')
+    def login_template(signuperror=None):
+        if(signuperror is None):
+            return render_template('login.html')
+        else:
+            return render_template('login.html', signuperror=signuperror)
 
     @app.route('/register')
     def register_template():
@@ -67,8 +71,10 @@ def create_app() -> Flask:
             new_blog.save_to_mongo()
 
             title = entry_content[:30]
-            new_post = Entry(new_blog.get_id(), title,
-                             entry_content, cur_user.email)
+            new_post = Entry(
+                new_blog.get_id(), title,
+                entry_content, cur_user.email
+            )
             new_post.save_to_mongo()
 
         entries = []
@@ -147,7 +153,7 @@ def create_app() -> Flask:
     def login_user():
         email = request.form['email']
         password = request.form['password']
-
+        SignupError = None
         if User.login_valid(email, password):
             User.login(email)
             cur_user = User(email, password)
@@ -158,10 +164,16 @@ def create_app() -> Flask:
                 return "not logged in"
 
         else:
+            flash("Invalid Credentials")
+            SignupError = True
+            print("Not logged in")
             session['email'] = None
 
         # return render_template("profile.html", email=session['email'])
-        return redirect(url_for('home'))
+        if(SignupError is None):
+            return redirect(url_for('home'))
+        else:
+            return render_template("login.html", loginerror="Invalid Credentials")
 
     @app.route('/auth/register', methods=['POST'])
     def register_user():
@@ -181,4 +193,11 @@ def create_app() -> Flask:
         User.logout()
         flask_login.logout_user()
         return redirect(url_for('home'))
+
+    @app.context_processor
+    def utility_functions():
+        def print_in_console(message):
+            print("debug "+str(message))
+
+        return dict(mdebug=print_in_console)
     return app
