@@ -57,8 +57,9 @@ def create_app() -> Flask:
         except KeyError:
             print("Not logged in.")
         entries: List[Tuple] = []
+        cur_user = User.get_by_email(session['email'])
+        # print(cur_user)
         if request.method == 'POST':
-            cur_user = User.get_by_email(session['email'])
             num = cur_user.count_blogs()
             print("num of blogs", num)
             num += 1
@@ -79,7 +80,6 @@ def create_app() -> Flask:
 
         entries = []
         print("entries: ", entries)
-        cur_user = User(session['email'])
         fetched_entries = cur_user.get_recent_posts(5)
         for entry in fetched_entries:
             pprint(entry)
@@ -92,7 +92,7 @@ def create_app() -> Flask:
                 )
             )
         print(entries)
-        return render_template('home.html', entries=entries)
+        return render_template('home.html', entries=entries, user=cur_user)
 
     @app.route('/blogs/<string:user_id>')
     @app.route('/blogs')
@@ -104,7 +104,7 @@ def create_app() -> Flask:
 
         blogs = cur_user.get_blogs()
 
-        return render_template("user_blogs.html", blogs=blogs, email=cur_user.email)
+        return render_template("user_blogs.html", blogs=blogs, email=cur_user.email, user=cur_user)
 
     @app.route('/blogs/new', methods=['POST', 'GET'])
     def create_new_blog():
@@ -179,7 +179,9 @@ def create_app() -> Flask:
     def register_user():
         email = request.form['email']
         password = request.form['password']
-        if User.register(email, password):
+        fname = request.form['fname']
+        lname = request.form['lname']
+        if User.register(email, password, fname=fname, lname=lname):
             return render_template("profile.html", email=session['email'])
         else:
             return render_template("login.html", signuperror="User already exists")
@@ -197,7 +199,9 @@ def create_app() -> Flask:
     @app.context_processor
     def utility_functions():
         def print_in_console(message):
-            print("debug "+str(message))
+            print("debug ")
+            print(message)
+            print("-----------------------------------------------\n")
 
         return dict(mdebug=print_in_console)
     return app

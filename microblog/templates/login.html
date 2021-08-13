@@ -14,11 +14,11 @@
     <form id="login-form" class="form" action="/auth/login" method="post">
         <div class="form-group">
             <label for="email" class="form__label">Email</label>
-            <input type="text" id="email" class="form__textarea" name="email">
+            <input required type="text" id="email" class="form__textarea" name="email">
         </div>
         <div class="form-group">
             <label class="form__label" for="password">Password</label>
-            <input type="password" id="password" class="form__textarea" name="password">
+            <input required type="password" id="password" class="form__textarea" name="password">
         </div>
 
         <button type="submit" class="button btn-success">Log in</button>

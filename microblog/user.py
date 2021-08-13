@@ -17,13 +17,15 @@ class User(flask_login.UserMixin):
     Uses sessions for login
     """
 
-    def __init__(self, email, password=None, _id=None):
+    def __init__(self, email, password=None, _id=None, fname=None, lname=None):
         # super().__init__()
         self.email = email
         # Ensure the password is hashed before calling init
         self.auth = None
         self.password = password
         self._id = uuid.uuid4().hex if _id is None else _id
+        self.fname = fname
+        self.lname = lname
 
     @classmethod
     def get_by_email(cls, email):
@@ -52,14 +54,14 @@ class User(flask_login.UserMixin):
         return False
 
     @classmethod
-    def register(cls, email, password):
+    def register(cls, email, password, fname, lname):
         user = User.get_by_email(email)
         print("user: ", user)
         if user is None:
             # User does not exist so create a new user
             hashed_pwd = bcrypt.generate_password_hash(
                 password.encode('utf8')).decode("utf-8")
-            cls(email, hashed_pwd).save_to_db()
+            cls(email, hashed_pwd, fname=fname, lname=lname).save_to_db()
             session['email'] = email
             return True
         else:
@@ -102,6 +104,8 @@ class User(flask_login.UserMixin):
             "email": self.email,
             "_id": self._id,
             "password": self.password,
+            "fname": self.fname,
+            "lname": self.lname,
         }
 
     def save_to_db(self):
@@ -136,3 +140,11 @@ class User(flask_login.UserMixin):
 
     def get_id(self):
         return self._id
+
+    def __str__(self):
+        return (
+            "email: " + self.email + '\n' +
+            "First Name: " + self.fname + '\n' +
+            "Last Name: " + self.lname + '\n' +
+            "id: " + self._id+'\n'
+        )

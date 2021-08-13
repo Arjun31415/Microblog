@@ -50,11 +50,13 @@
                 %}
                 <!-- {{mdebug(url_for(request.endpoint) )}}
                 {{mdebug(url_for('login_template'))}}
-                {{mdebug(url_for(request.endpoint)==url_for('login_template'))}} -->
+                {{mdebug(url_for(request.endpoint)==url_for('login_template'))}}
+                {{mdebug(user)}}
+            -->
 
                 <li class="navbar__navigation-item" id="user">
                     <a href="{{url_for('user_blogs')}}" class="navbar__link">
-                        AP
+                        {{user.fname[0]}}{{user.lname[0]}}
                     </a>
                 </li>
                 {%endif%}
