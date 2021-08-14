@@ -1,4 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Hello {{ email }}</h1>
+<h1>Hello {{ user.fname }} {{user.lname}}
+
+    email: {{ user.email}}
+    
+</h1>
 {% endblock %}

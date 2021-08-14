@@ -5,12 +5,18 @@ from typing import List, Tuple
 import flask_login
 import pytz
 from dotenv import load_dotenv
-from flask import Flask, make_response, render_template, request, session
+from flask import (
+    Flask,
+    flash,
+    make_response,
+    render_template,
+    request,
+    session
+)
 from flask.helpers import url_for
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import redirect
 
-from flask import flash
 import user
 from blog import Blog
 from database.db import Database
@@ -92,7 +98,7 @@ def create_app() -> Flask:
                 )
             )
         print(entries)
-        return render_template('home.html', entries=entries, user=cur_user)
+        return render_template('home.html', entries=entries, user=cur_user, disp=True)
 
     @app.route('/blogs/<string:user_id>')
     @app.route('/blogs')
@@ -104,7 +110,13 @@ def create_app() -> Flask:
 
         blogs = cur_user.get_blogs()
 
-        return render_template("user_blogs.html", blogs=blogs, email=cur_user.email, user=cur_user)
+        return render_template(
+            "user_blogs.html",
+            blogs=blogs,
+            email=cur_user.email,
+            user=cur_user,
+            disp=True
+        )
 
     @app.route('/blogs/new', methods=['POST', 'GET'])
     def create_new_blog():
@@ -115,28 +127,47 @@ def create_app() -> Flask:
             description = request.form['description']
             cur_user = User.get_by_email(session['email'])
 
-            new_blog = Blog(cur_user.email, title, description, cur_user._id)
+            new_blog = Blog(
+                cur_user.email,
+                title,
+                description, cur_user.get_id()
+            )
             new_blog.save_to_mongo()
 
-            return make_response(user_blogs(cur_user._id))
+            return make_response(user_blogs(cur_user.get_id()))
 
     @app.route('/posts/<string:blog_id>')
     def blog_posts(blog_id):
         blog = Blog.from_mongo(blog_id)
         posts = blog.get_posts()
-
-        return render_template('posts.html', posts=posts, blog_title=blog.title, blog_id=blog._id)
+        cur_user = User.get_by_email(session['email'])
+        return render_template(
+            'posts.html',
+            posts=posts,
+            blog_title=blog.title,
+            blog_id=blog.get_id(),
+            disp=True,
+            user=cur_user
+        )
 
     @app.route('/posts/new/<string:blog_id>', methods=['POST', 'GET'])
     def create_new_post(blog_id):
         if request.method == 'GET':
-            return render_template('new_post.html', blog_id=blog_id)
+            return render_template(
+                'new_post.html',
+                blog_id=blog_id,
+                disp=True
+            )
         else:
             title = request.form['title']
             content = request.form['content']
             cur_user = User.get_by_email(session['email'])
 
-            new_post = Entry(blog_id, title, content, cur_user.email)
+            new_post = Entry(
+                blog_id, title,
+                content,
+                cur_user.email
+            )
             new_post.save_to_mongo()
 
             return make_response(blog_posts(blog_id))
@@ -182,7 +213,8 @@ def create_app() -> Flask:
         fname = request.form['fname']
         lname = request.form['lname']
         if User.register(email, password, fname=fname, lname=lname):
-            return render_template("profile.html", email=session['email'])
+            # return render_template("profile.html", email=session['email'])
+            retrun = redirect(url_for('home'))
         else:
             return render_template("login.html", signuperror="User already exists")
 
@@ -204,4 +236,20 @@ def create_app() -> Flask:
             print("-----------------------------------------------\n")
 
         return dict(mdebug=print_in_console)
+
+    @app.route('/profile')
+    def redirect_to_profile():
+        cur_user = User.get_by_email(session['email'])
+        # return make_response(profile(cur_user.get_id()))
+        return redirect(f'profile/{cur_user.get_id()}')
+
+    @app.route('/profile/<string:user_id>')
+    def profile(user_id=None):
+        if(user_id is None):
+            return redirect(url_for('redirect_to_profile'))
+        return render_template(
+            'profile.html',
+            user=User.get_by_id(user_id),
+            disp=True
+        )
     return app
