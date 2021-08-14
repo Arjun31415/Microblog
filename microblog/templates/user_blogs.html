@@ -5,6 +5,61 @@
     {% for blog in blogs %}
     <h3><a href="/posts/{{ blog._id }}">{{ blog.title }}</a></h3>
     <p>{{ blog.description }}</p>
+    <span class="toolbar">
+
+        <form method="post">
+            <input type="hidden" name="key" value="{{blog._id}}" />
+            <button class="btn-trash toolbar__option">
+                <img src="data:image/png;base64,
+                    iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/
+                    AP+gvaeTAAABuElEQVRIie2WwSuDYRzHv7/HZuwdcZA5oM2UWjkolouzg4uklIv/
+                    gCMKpXDl7OTg5CSUHHZRiFLUSm0zS8Ik9G7zbrbncTLvtvd9NSap93v7/b7f3/
+                    N5nuf0A/5IVEr4Ao5hgNzarrjsQHyj7OAAJGcFaJ1BLGn5HDSVhRj1InFXMj
+                    gAVFpQ00PgVRrRAQG0EsSh1kEC1EtAFBDbxR5TMpCPvUBaExxqcB1Lfb0eVmUr/
+                    gnOLZwLq9ErGKM3MJYpGlVSIr5/EGyPXfk+epa8wVpHs3Nust7o8C9k0zMig6MtiH3WeeDs0/NNuH/
+                    ISkCdYEz84AI5EeckgGehKDd5/cJgqNG93LQ4O27v7ioHF8mTU9xOz6947i8n1H1mNCTv+
+                    ZGOXufqx9U13azaS0evIe/
+                    5DS9kCE6FI8jEHnJ18uhEN6v2MrEHpMKR74N/UybYBJtgE2yCTfA/
+                    AxMAkGpJIYNtuCD31d5sMTLrRobAJHuublqY0c2qvepOL2xtrtLAQpb
+                    PXzZ3kshm7VoD6UhU9zAt72VrN8Hj8llhv+hHBEBBqWGMSZKv0PuO+
+                    Kty1C7frRFQlq31x3oHH+iQROvAzCIAAAAASUVORK5CYII=">
+            </button>
+        </form>
+        <form method="post" action="/edit/{{blog._id}}">
+            <input type="hidden" name="key" value="{{blog._id}}" />
+            <button class="btn-edit toolbar__option">
+                <img alt="svgImg" src="data:image/svg+xml;base64,
+                    PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIge
+                    T0iMHB4Igp3aWR0aD0iMzAiIGhlaWdodD0iMzAiCnZpZXdCb3g9IjAgMCA1MCA1MC
+                    IKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDQ2LjU3NDIxOSAzLjQ
+                    yNTc4MSBDIDQ1LjYyNSAyLjQ3NjU2MyA0NC4zNzg5MDYgMiA0My4xMzI4MTMgMiBD
+                    IDQxLjg4NjcxOSAyIDQwLjY0MDYyNSAyLjQ3NjU2MyAzOS42OTE0MDYgMy40MjU3O
+                    DEgQyAzOS42OTE0MDYgMy40MjU3ODEgMzkuNjIxMDk0IDMuNDkyMTg4IDM5LjUzMT
+                    I1IDMuNTg1OTM4IEMgMzkuNTIzNDM4IDMuNTkzNzUgMzkuNTExNzE5IDMuNTk3NjU
+                    2IDM5LjUwMzkwNiAzLjYwNTQ2OSBMIDQuMzAwNzgxIDM4LjgwNDY4OCBDIDQuMTc5
+                    Njg4IDM4LjkyOTY4OCA0LjA4OTg0NCAzOS4wODIwMzEgNC4wNDI5NjkgMzkuMjUzO
+                    TA2IEwgMi4wMzUxNTYgNDYuNzQyMTg4IEMgMS45NDE0MDYgNDcuMDg1OTM4IDIuMD
+                    M5MDYzIDQ3LjQ1MzEyNSAyLjI5Mjk2OSA0Ny43MDcwMzEgQyAyLjQ4NDM3NSA0Ny4
+                    4OTg0MzggMi43MzgyODEgNDggMyA0OCBDIDMuMDg1OTM4IDQ4IDMuMTcxODc1IDQ3
+                    Ljk4ODI4MSAzLjI1NzgxMyA0Ny45NjQ4NDQgTCAxMC43NDYwOTQgNDUuOTU3MDMxI
+                    EMgMTAuOTE3OTY5IDQ1LjkxMDE1NiAxMS4wNzAzMTMgNDUuODIwMzEzIDExLjE5NT
+                    MxMyA0NS42OTUzMTMgTCA0Ni4zOTQ1MzEgMTAuNSBDIDQ2LjQwNjI1IDEwLjQ4ODI
+                    4MSA0Ni40MTAxNTYgMTAuNDcyNjU2IDQ2LjQxNzk2OSAxMC40NjA5MzggQyA0Ni41
+                    MDc4MTMgMTAuMzcxMDk0IDQ2LjU3MDMxMyAxMC4zMDg1OTQgNDYuNTcwMzEzIDEwL
+                    jMwODU5NCBDIDQ4LjQ3NjU2MyA4LjQwNjI1IDQ4LjQ3NjU2MyA1LjMyNDIxOSA0Ni
+                    41NzQyMTkgMy40MjU3ODEgWiBNIDQ1LjE2MDE1NiA0LjgzOTg0NCBDIDQ2LjI3NzM
+                    0NCA1Ljk1NzAzMSA0Ni4yNzczNDQgNy43NzczNDQgNDUuMTYwMTU2IDguODk0NTMx
+                    IEMgNDQuODI4MTI1IDkuMjIyNjU2IDQ0LjU0Njg3NSA5LjUwNzgxMyA0NC4zMDQ2O
+                    DggOS43NSBMIDQwLjI1IDUuNjk1MzEzIEMgNDAuNzEwOTM4IDUuMjM0Mzc1IDQxLj
+                    EwNTQ2OSA0LjgzOTg0NCA0MS4xMDU0NjkgNC44Mzk4NDQgQyA0MS42NDQ1MzEgNC4
+                    yOTY4NzUgNDIuMzY3MTg4IDQgNDMuMTMyODEzIDQgQyA0My44OTg0MzggNCA0NC42
+                    MTcxODggNC4zMDA3ODEgNDUuMTYwMTU2IDQuODM5ODQ0IFogTSA1LjYwNTQ2OSA0M
+                    S4xNTIzNDQgTCA4Ljg0NzY1NiA0NC4zOTQ1MzEgTCA0LjQxNDA2MyA0NS41ODU5Mz
+                    ggWiI+PC9wYXRoPjwvc3ZnPg==" />
+            </button>
+        </form>
+    </span>
+
     <hr>
     {% endfor %}
     <script>

@@ -320,3 +320,20 @@ body {
 .profile-icon {
     padding-right: 5px;
 }
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toolbar__option {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.btn-trash,
+.btn-edit {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}

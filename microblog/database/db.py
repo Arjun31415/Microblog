@@ -50,3 +50,11 @@ class Database(object):
         temp = Database.DATABASE[collection].find(pipeline)
         pprint(temp)
         return (len(list(temp)))
+
+    @staticmethod
+    def delete(collection, query):
+        # try:
+        #     Database.DATABASE[collection].remove(query)
+        # except:
+        #     print("Error in deleting ")
+        Database.DATABASE[collection].remove(query)

@@ -1,4 +1,5 @@
 import datetime
+from os import stat
 import uuid
 
 from database.db import Database
@@ -64,3 +65,12 @@ class Blog(object):
             query={'author_id': author_id}
         )
         return [cls(**blog) for blog in blogs]
+
+    @classmethod
+    def find_by_id(cls, _id):
+        blog = Database.find(collection='blogs', query={'_id': _id})
+        return [cls(**blog) for blog in blog][0]
+
+    def delete(self):
+        Database.delete(collection='blogs', query={'_id': self._id})
+        Database.delete(collection='entries', query={'blog_id': self._id})

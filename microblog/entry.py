@@ -37,5 +37,13 @@ class Entry(object):
         return cls(**post_data)
 
     @staticmethod
-    def from_blog(id):
-        return [post for post in Database.find(collection='entries', query={'blog_id': id})]
+    def from_blog(blog_id):
+        return [post for post in Database.find(collection='entries', query={'blog_id': blog_id})]
+
+    @classmethod
+    def find_by_id(cls, _id):
+        entry = Database.find(collection='entries', query={'_id': _id})
+        return [cls(**entry) for entry in entry][0]
+
+    def delete(self):
+        Database.delete(collection='entries', query={'_id': self._id})

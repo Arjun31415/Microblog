@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Microblog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     <script src="{{ url_for('static', filename='script/dropdown.js')}}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script>
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
@@ -46,9 +48,7 @@
                 </li>
                 {% if  disp%}
                 <li class="navbar__navigation-item" id="user">
-                    <!-- <a href="{{url_for('redirect_to_profile')}}" class="navbar__link">
-                        {{user.fname[0]}}{{user.lname[0]}}
-                    </a> -->
+
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn">{{user.fname[0]}}{{user.lname[0]}}</button>
                         <div id="profile-dropdown" class="dropdown-content">

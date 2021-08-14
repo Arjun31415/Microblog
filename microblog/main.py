@@ -100,14 +100,34 @@ def create_app() -> Flask:
         print(entries)
         return render_template('home.html', entries=entries, user=cur_user, disp=True)
 
-    @app.route('/blogs/<string:user_id>')
-    @app.route('/blogs')
+    @app.route('/blogs/<string:user_id>', methods=['GET'])
+    @app.route('/blogs', methods=['GET'])
     def user_blogs(user_id=None):
         if user_id is not None:
             cur_user = User.get_by_id(user_id)
         else:
             cur_user = User.get_by_email(session['email'])
 
+        blogs = cur_user.get_blogs()
+
+        return render_template(
+            "user_blogs.html",
+            blogs=blogs,
+            email=cur_user.email,
+            user=cur_user,
+            disp=True
+        )
+
+    @app.route('/blogs/<string:user_id>', methods=['POST'])
+    @app.route('/blogs', methods=['POST'])
+    def delete_blogs(user_id=None):
+        if user_id is not None:
+            cur_user = User.get_by_id(user_id)
+        else:
+            cur_user = User.get_by_email(session['email'])
+        blog_to_delete = Blog.find_by_id(request.form.get('key'))
+        print("Blog to delete: ", blog_to_delete)
+        Blog.delete(blog_to_delete)
         blogs = cur_user.get_blogs()
 
         return render_template(
