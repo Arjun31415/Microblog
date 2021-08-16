@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <form id="new-blog" action="/blogs/new" method="post">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" class="form-control" name="title">
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" class="form-control" name="description">
-        </div>
+    <form id="new-blog" class="form" action="/blogs/new" method="post">
+        <p class="form__input">
+            <label for="title" class="form__label">Title</label>
+            <input type="text" id="title" class="form__textarea" name="title">
+        </p>
 
-        <button type="submit" class="btn btn-success">Create blog</button>
+        <p class="form__input">
+            <label for="description" class="form__label">Description</label>
+            <input type="text" id="description" class="form__textarea" name="description">
+        </p>
+
+        <button type="submit" class="form__submit btn-success">Create blog</button>
     </form>
 </div>
 {% endblock %}
