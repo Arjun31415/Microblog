@@ -337,3 +337,20 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.add-new {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+}
+
+.btn-add {
+    background-color: white;
+    border: none;
+
+}
+
+.btn-add:hover {
+    cursor: pointer;
+}
