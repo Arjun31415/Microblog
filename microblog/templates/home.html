@@ -20,8 +20,9 @@
     {% for entry in entries %}
     <article class="entry">
         <div>
-            <!-- <h2 class="entry__title">{{entry[0] | truncate(30,true)}}</h2> -->
-            <h2 class="entry__title">{{entry[3] | truncate(30,true)}}</h2>
+            <a href="/posts/{{entry[4]}}" class="link-to-post">
+                <h2 class="entry__title">{{entry[3] | truncate(30,true)}}</h2>
+            </a>
 
             <time class="entry__date" datetime="{{entry[1]}}">• {{entry[2]}}</time>
         </div>

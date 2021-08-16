@@ -94,7 +94,8 @@ def create_app() -> Flask:
                     entry['content'],
                     entry['created_date'],
                     entry['created_date'].strftime("%b %d"),
-                    entry['title']
+                    entry['title'],
+                    entry['blog_id'],
                 )
             )
         print(entries)
@@ -138,6 +139,7 @@ def create_app() -> Flask:
             disp=True
         )
 
+    @flask_login.login_required
     @app.route('/blogs/new', methods=['POST', 'GET'])
     def create_new_blog():
         if request.method == 'GET':
@@ -170,13 +172,15 @@ def create_app() -> Flask:
             user=cur_user
         )
 
+    @flask_login.login_required
     @app.route('/posts/new/<string:blog_id>', methods=['POST', 'GET'])
     def create_new_post(blog_id):
         if request.method == 'GET':
             return render_template(
                 'new_post.html',
                 blog_id=blog_id,
-                disp=True
+                disp=True,
+                user=User.get_by_email(session['email'])
             )
         else:
             title = request.form['title']

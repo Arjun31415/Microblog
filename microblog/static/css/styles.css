@@ -364,3 +364,8 @@ body {
     font-size: 20px;
     font-weight: 450;
 }
+
+.link-to-post {
+    text-decoration: none;
+    color: inherit;
+}
