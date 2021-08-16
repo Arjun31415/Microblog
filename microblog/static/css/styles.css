@@ -369,3 +369,7 @@ body {
     text-decoration: none;
     color: inherit;
 }
+
+.link-to-post:hover {
+    text-decoration: underline;
+}
