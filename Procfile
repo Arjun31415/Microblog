@@ -1,1 +1,1 @@
-web: gunicorn "app:create_app()"
+web: gunicorn --chdir "microblog main:create_app()"
