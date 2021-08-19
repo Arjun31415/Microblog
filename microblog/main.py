@@ -1,4 +1,5 @@
 import datetime
+import os
 from pprint import pprint
 from typing import List, Tuple
 
@@ -30,7 +31,7 @@ load_dotenv()
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.secret_key = "meme"
+    app.secret_key = os.environ.get("SECRET_KEY").encode('utf8')
 
     app.db = Database
     login_manager = flask_login.LoginManager()
