@@ -16,7 +16,7 @@ body {
 .navbar {
     max-width: 740px;
     margin: 50px auto;
-    padding: 0px 20px;
+    padding: 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -103,7 +103,7 @@ body {
 
 .form__submit:hover {
     background-color: #18c1e1;
-    box-shadow: 0px 10px 10px 1px #42cfeb;
+    box-shadow: 0 10px 10px 1px #42cfeb;
     transform: translateY(-7px);
     color: #05fd9a;
     /* color: #47f031; */
@@ -203,7 +203,7 @@ body {
     border-radius: 20px;
     color: white;
     cursor: pointer;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     outline: none;
     margin-right: 25px;
     margin-left: 25px;
@@ -211,7 +211,7 @@ body {
 
 .button:hover {
     /* background-color: #18c1e1; */
-    /* box-shadow: 0px 10px 10px 1px #42cfeb; */
+    /* box-shadow: 0 10px 10px 1px #42cfeb; */
     transform: translateY(-7px);
     /* color: #05fd9a; */
     /* color: #47f031; */
@@ -251,7 +251,7 @@ body {
     margin-bottom: 2.5em;
     font-size: 18px;
     padding: 10px;
-    box-shadow: 0px 0px 10px 5px #FB7D7D;
+    box-shadow: 0 0px 10px 5px #FB7D7D;
 }
 
 .dropbtn {
@@ -284,7 +284,7 @@ body {
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
