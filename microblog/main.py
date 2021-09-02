@@ -239,7 +239,7 @@ def create_app() -> Flask:
         lname = request.form['lname']
         if User.register(email, password, fname=fname, lname=lname):
             # return render_template("profile.html", email=session['email'])
-            retrun = redirect(url_for('home'))
+            return redirect(url_for('home'))
         else:
             return render_template("login.html", signuperror="User already exists")
 
