@@ -28,7 +28,7 @@ mypy==0.910
 pycodestyle==2.7.0
 pycparser==2.20
 pylint==2.9.6
-pymongo==3.12.0
+pymongo==4.6.3
 python-dotenv==0.19.0
 pytz==2021.1
 six==1.16.0
